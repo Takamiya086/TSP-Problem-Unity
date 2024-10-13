@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    // Ëæ»úÉú³É0~8µÄÊı×Ö
+    // éšæœºç”Ÿæˆ0~8çš„æ•°å­—
     int GetRandomNumber()
     {
         return UnityEngine.Random.Range(0, 8);
@@ -25,7 +25,7 @@ public class Manager : MonoBehaviour
     public List<Cell> cellRow7;
 
     public Knight knight;
-    // ³õÊ¼»¯ÆåÅÌ
+    // åˆå§‹åŒ–æ£‹ç›˜
     public List<List<Cell>> cells = new List<List<Cell>>(8);
     List<Tuple<int, int>> moveKnight = new List<Tuple<int, int>>();
     void Start()
@@ -41,22 +41,22 @@ public class Manager : MonoBehaviour
 
         int first_x = GetRandomNumber();
         int first_y = GetRandomNumber();
-        knight.transform.position = cells[first_x][first_y].transform.position; // µÚÒ»´ÎµÄÎ»ÖÃ 
+        knight.transform.position = cells[first_x][first_y].transform.position; // ç¬¬ä¸€æ¬¡çš„ä½ç½® 
         knight.transform.position = cells[first_x][first_y].transform.position;
 
-        // µ÷ÓÃº¯Êı¼ÆËã³öÒª×ßµÄÎ»ÖÃ
+        // è°ƒç”¨å‡½æ•°è®¡ç®—å‡ºè¦èµ°çš„ä½ç½®
         dfsSolution(first_x, first_y);
     }
 
-    // ÂíÌ¤ÆåÅÌ²¿·Ö
+    // é©¬è¸æ£‹ç›˜éƒ¨åˆ†
     void dfsSolution(int x, int y)
     {
-        //ÂíµÄÒÆ¶¯·½Ïò
+        //é©¬çš„ç§»åŠ¨æ–¹å‘
         int[] dx = { -2, -1, 1, 2, 2, 1, -1, -2 };
         int[] dy = { 1, 2, 2, 1, -1, -2, -2, -1 };
-        bool[,] isVisited = new bool[8, 8]; // ¼ÇÂ¼ÊÇ·ñ±éÀú¹ı
-        List<Tuple<int, int>> nowRoad = new(); // Ôª×é¼ÇÂ¼Â·¾¶
-        bool isGotAnswer = false; // ÊÇ·ñµÃµ½´ğ°¸
+        bool[,] isVisited = new bool[8, 8]; // è®°å½•æ˜¯å¦éå†è¿‡
+        List<Tuple<int, int>> nowRoad = new(); // å…ƒç»„è®°å½•è·¯å¾„
+        bool isGotAnswer = false; // æ˜¯å¦å¾—åˆ°ç­”æ¡ˆ
         void dfs(int x, int y)
         {
             if (isGotAnswer)
@@ -96,7 +96,7 @@ public class Manager : MonoBehaviour
                 return count;
             }
 
-            // °´ÕÕWarnsdorff¹æÔòÅÅĞò (¼ôÖ¦ÓÅ»¯)
+            // æŒ‰ç…§Warnsdorffè§„åˆ™æ’åº (å‰ªæä¼˜åŒ–)
             nextMoves.Sort((a, b) => CountNextMoves(a.Item1, a.Item2).CompareTo(CountNextMoves(b.Item1, b.Item2)));
 
             foreach (var move in nextMoves)
@@ -125,6 +125,10 @@ public class Manager : MonoBehaviour
             cells[moveKnight[i].Item1][moveKnight[i].Item2].SetStep(i + 1);
             print(cells[moveKnight[i].Item1][moveKnight[i].Item2]);
             ++i;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Application.Quit();
         }
     }
 }
